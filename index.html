@@ -60,16 +60,16 @@
   .brand-mark{height:30px; padding:0 10px; border-radius:8px; background:var(--pink); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13px; letter-spacing:.03em; flex:none;}
   .brand-text .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--slate); display:block;}
   .brand-text h1{font-size:19px; font-weight:600;}
-  /* ---------- Scorecard band ---------- */
-  .scoreband{background:#0F1729; color:#fff;}
-  .scoreband-inner{max-width:1180px; margin:0 auto; padding:26px 20px 30px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  /* ---------- Scorecard ---------- */
+  .scoreband{background:var(--paper);}
+  .scoreband-inner{max-width:1180px; margin:0 auto; padding:8px 20px 22px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
   @media (max-width:760px){ .scoreband-inner{grid-template-columns:repeat(2,1fr); gap:18px;} }
-  .stat .figure{font-size:46px; font-weight:700; line-height:1.05; letter-spacing:-.02em; color:#fff;}
-  .stat .label{font-size:14px; font-weight:600; margin-top:10px;}
-  .stat .sub{font-size:12px; color:#94A3B8; margin-top:8px; line-height:1.5;}
-  .stat.is-native .figure{color:#12A257;}
-  .stat.is-custom .figure{color:#E79B10;}
-  .stat.is-none .figure{color:#8B93A3;}
+  .stat .figure{font-size:46px; font-weight:700; line-height:1.05; letter-spacing:-.02em; color:var(--ink);}
+  .stat .label{font-size:14px; font-weight:600; margin-top:10px; color:var(--ink);}
+  .stat .sub{font-size:12px; color:var(--slate); margin-top:8px; line-height:1.5;}
+  .stat.is-native .figure{color:var(--native);}
+  .stat.is-custom .figure{color:var(--custom);}
+  .stat.is-none .figure{color:var(--slate);}
 
   /* ---------- Level 1: requirement menu ---------- */
   .l1-wrap{background:var(--paper); border-bottom:1px solid var(--line);}
