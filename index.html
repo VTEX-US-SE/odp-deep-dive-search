@@ -114,6 +114,7 @@
   .badge::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
 
   .content-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:28px; align-items:start;}
+  .content-grid.no-media{grid-template-columns:minmax(0,760px);}
   @media (max-width:900px){ .content-grid{grid-template-columns:1fr;} }
 
   .text-col{display:flex; flex-direction:column; gap:20px;}
@@ -186,7 +187,7 @@
       caps:[
         ["Mega menu","native","Yes &mdash; mega menus are a native, no-code feature. Your merchandising team builds the category tree in VTEX Admin, and the storefront renders it as a multi-column mega menu automatically, with unlimited nesting depth. Columns, groupings, and promotional tiles inside the menu are managed the same way, so new departments or seasonal categories can go live without a developer ticket.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-overview"],
         ["Subcategory links","native","Subcategory navigation is inherited automatically from your catalog hierarchy &mdash; there's no separate step to “wire up” a subcategory link. The moment a subcategory is created under a department in Catalog, it appears in navigation, in breadcrumbs, and as a filterable path in search, keeping your taxonomy and your navigation permanently in sync.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-overview"],
-        ["Cross-category links","native","A single SKU can be associated with more than one category in VTEX Catalog, so the same product can surface under, for example, both “Office Furniture” and “Ergonomic Chairs” without creating a duplicate product record. This keeps inventory, pricing, and reviews unified on one product while still letting merchandising cross-list it wherever shoppers expect to find it.",null,null,"https://developers.vtex.com/docs/guides/catalog-overview"],
+        ["Cross-category links","native","In VTEX Catalog a product sits on a single category path &mdash; it is not attached to several categories at once. Where a SKU needs to appear under more than one browse path (a wireless keyboard under both Technology and Office Furniture accessories, say), the pattern is a Merchandising Rule: the rule targets the category or the query and force-includes the products that should surface there. The SKU shows up in both places without a duplicate product record, so inventory, pricing, and reviews stay unified on one product &mdash; and the rule is built by your merchandising team in Intelligent Search Admin, with no catalog restructuring and no developer ticket.",null,null,"https://help.vtex.com/en/docs/tutorials/creating-merchandising-rules-visual-editor"],
         ["Breadcrumbs","native","Breadcrumb trails are generated automatically from the category hierarchy on every PLP and PDP &mdash; no manual configuration per page. Because they're driven by the same catalog tree that powers navigation and search, a breadcrumb is always accurate even after a product is recategorized. On top of the native trail, ODP's team also used the CMS's [ODP] Breadcrumb content block (shown in the clip alongside it) to add custom styling and a Hero banner above it, published through a normal content branch and merge &mdash; so marketing changes can be scheduled and reviewed before they go live.",null,"Office Depot workshop recording (short excerpt) &mdash; live storefront preview, then the [ODP] Breadcrumb &amp; Hero content panels in the CMS, ending on a scheduled branch merge into Main.","https://help.vtex.com/tutorial/site-editor-overview--299Dbeb9mFczUTyNQ9xPe1"],
         ["Product taxonomy","native","Your department, category, and custom-attribute structure is fully self-service in VTEX Admin's Catalog settings &mdash; no VTEX involvement needed to add a department, insert a subcategory, or introduce a new specification field (like “Color” or “Pack Type”). This taxonomy is what powers navigation, breadcrumbs, faceted search, and merchandising rules everywhere else in this playbook, so it's worth treating as the foundation your merchandising team owns directly.",null,null,"https://developers.vtex.com/docs/guides/catalog-overview"]
       ]
@@ -194,13 +195,13 @@
     { n:18, title:"Faceted Search & Merchandising Control", flag:"native",
       doc:"https://help.vtex.com/en/docs/tutorials/search-configuration",
       caps:[
-        ["Manage boost/bury","native","Merchandisers can push specific facet values up or down in Intelligent Search Admin with no engineering involved &mdash; for example, boosting an in-stock brand or burying a discontinued one for a given category. One thing worth setting expectations on for a catalog as broad as ODP's: facet configuration in IS is applied per attribute and category, not per individual search query, so boost/bury rules are best planned at the category level rather than as one-off exceptions for a single search term. For the highest-traffic queries, the Merchandising Rules engine (see Requirement #26) layers query-specific promotion and pricing on top of this.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
-        ["Manage show/hide","native","Any indexed attribute can be turned into a visible or hidden facet, per category, from the same Search Admin screen &mdash; so a “Paper Weight” facet can show up under Paper & Printing but stay hidden under Furniture. This category scoping is the main lever for keeping facet panels relevant across a catalog that spans very different product types, and it's configured by your merchandising team without a deploy.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
-        ["Rename facets","native","Facet labels are plain-text fields in Search Admin, so “Color” can become “Finish” for a furniture category or be translated for a different storefront locale, entirely through configuration. This lets merchandising match the terminology your customers actually use, without waiting on a content release.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
+        ["Manage boost/bury","native","Boost and bury is driven by Merchandising Rules rather than by facet configuration. A rule promotes or demotes products based on their attributes &mdash; brand, stock status, category, price band, or any custom specification carried on the product &mdash; and those rules can be segmented across multiple levels, so the same attribute is boosted in one category or query context and buried in another. Your merchandising team builds and edits them in Intelligent Search Admin&rsquo;s Visual Editor, with no engineering involved and no deploy.",null,null,"https://help.vtex.com/en/docs/tutorials/creating-merchandising-rules-visual-editor"],
+        ["Manage show/hide","native","Showing or hiding a facet per category is native: any indexed attribute can be switched on or off as a facet from the Search Admin screen, so a &ldquo;Paper Weight&rdquo; facet appears under Paper &amp; Printing but stays hidden under Furniture, configured by merchandising without a deploy. On top of that, ODP already has a more advanced facet-management app built on the VTEX APIs, which gives the team finer control over which facets surface in which context than the per-category toggle alone allows &mdash; that app is what merchandisers work in day to day.",null,null,"https://help.vtex.com/en/docs/tutorials/filters"],
+        ["Rename facets","native","Renaming is native as well: facet labels are plain-text fields in Search Admin, so &ldquo;Color&rdquo; can become &ldquo;Finish&rdquo; for a furniture category or be translated for another storefront locale, entirely through configuration and without a content release. ODP&rsquo;s custom facet-management build on the VTEX APIs sits on top of this, so renaming happens in the same place as the rest of the team&rsquo;s facet control rather than in a second tool.",null,null,"https://help.vtex.com/en/docs/tutorials/filters"],
         ["Expand/collapse facets","native","Each facet can default to expanded or collapsed on the PLP, which is a config toggle rather than a frontend change &mdash; useful for keeping the filter panel scannable when a category has many facet groups (as ODP's office-supplies-to-furniture range does) while still surfacing the two or three filters that matter most by default.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
-        ["Support ranges for facets","native","Numeric attributes like price, wattage, or dimensions support range-bucketed facets (e.g. $0&ndash;25, $25&ndash;50) configured directly in Search Admin, with bucket boundaries you control rather than a fixed platform default. The clip alongside shows this on a live reference storefront's Price facet, bucketed automatically as results load.",null,"VTEX Deep Dive recording (short excerpt) &mdash; FastShop reference storefront, Category / Subcategory / Price / Mark facets panel.","https://help.vtex.com/en/docs/tutorials/search-configuration"],
-        ["Support result counts for facets","native","Every facet value shown to a shopper carries a live result count (e.g. “Black (128)”) that updates as other filters are applied, so shoppers never filter into a dead end without warning. This comes from Intelligent Search's index and requires no custom counting logic.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
-        ["Search-within-facets","custom","There's no native search-inside-a-facet-list control in VTEX today &mdash; it's a small storefront component (a text input that filters the facet's value list client-side or via the Search API) built on top of the standard facets response. This is a common ask for facets with long value lists (like Brand), and it's a low-effort custom build since the underlying facet data is already there; it doesn't require any change to how facets are configured in Admin.",null,null,"https://developers.vtex.com/docs/api-reference/intelligent-search-api"]
+        ["Support ranges for facets","native","Numeric attributes like price, wattage, or dimensions support range-bucketed facets (e.g. $0&ndash;25, $25&ndash;50) configured directly in Search Admin, with bucket boundaries you control rather than a fixed platform default. The clip alongside shows this on a live reference storefront&rsquo;s Price facet, bucketed automatically as results load.",null,"FastShop reference storefront &mdash; Category / Subcategory / Price / Mark facets panel.","https://help.vtex.com/en/docs/tutorials/filters"],
+        ["Support result counts for facets","native","Every facet value shown to a shopper carries a live result count (e.g. &ldquo;Black (128)&rdquo;) that updates as other filters are applied, so shoppers never filter into a dead end without warning. The count comes straight from the Intelligent Search index &mdash; no custom counting logic on the storefront. The clip alongside shows it live on the FastShop reference storefront, where every facet value carries its count.",null,"FastShop reference storefront &mdash; facet values with live result counts (Gifts 128, School Supplies 127, Stationery shop 127).","https://help.vtex.com/en/docs/tutorials/filters"],
+        ["Search-within-facets","custom","Searching inside a facet&rsquo;s value list is already available in the custom facet-management app ODP uses today: merchandisers type to find a value in a long list &mdash; Brand being the obvious case &mdash; instead of scrolling it, which is what keeps facet management practical at ODP&rsquo;s catalog breadth. It reads the standard Intelligent Search facets response, so nothing changes in how facets are configured in Admin.",null,null,"https://help.vtex.com/en/docs/tutorials/filters"]
       ]
     },
     { n:19, title:"Omni-channel Fulfillment Visibility", flag:"native",
@@ -210,7 +211,7 @@
         ["Display BOPIS options on PLP/PDP","native","Pickup-in-store eligibility and the nearest eligible pickup point are shown inline on PLP and PDP through Delivery Promise, calculated from real-time store inventory rather than a static flag. On a headless storefront, shoppers who explicitly pick a pickup point see every location within a 50&nbsp;km radius, while the default &ldquo;nearby pickup&rdquo; suggestion (no address entered yet) shows up to 40 points within 10&nbsp;km &mdash; a sensible default for most stores, and worth knowing about if ODP wants to tune how proactively pickup options are surfaced.",null,"VTEX Deep Dive recording (short excerpt) &mdash; Decathlon PDP, &ldquo;Pick up in store within 2 hours&rdquo; banner.","https://developers.vtex.com/docs/guides/delivery-promise-for-headless-stores"],
         ["Display SDD options on PLP/PDP","native","Same-day delivery eligibility is calculated per SKU and shopper location using the same Delivery Promise engine as standard shipping and BOPIS, so all three delivery types are evaluated together and shown consistently rather than as separate systems. Eligibility depends on your configured shipping policies and carrier SLAs for same-day service in a given zone.",null,null,"https://developers.vtex.com/docs/guides/delivery-promise"],
         ["Filter results by local store inventory","native","Shoppers can filter a listing page down to only the items in stock at their selected store or pickup point, using the Delivery Methods/Options facet shown in the clip. This reads live per-location inventory rather than a company-wide stock number, so a filtered result reflects what's actually on the shelf at that specific location.",null,"VTEX Deep Dive recording (short excerpt) &mdash; primegoods b2cdemostore, Electronics &amp; Appliances category, Delivery Methods/Options filters open.","https://developers.vtex.com/docs/guides/delivery-promise"],
-        ["Show store-specific pricing & availability","native","Price tables and inventory can be scoped by store, region, or sales channel (trade policy), and the storefront automatically shows the shopper the price and stock that apply to their selected store &mdash; without them needing to re-search or manually switch context. This is the same mechanism that supports region- or channel-specific promotions and B2B contract pricing elsewhere in the platform.",null,null,"https://developers.vtex.com/docs/guides/delivery-promise"]
+        ["Show store-specific pricing & availability","native","Price tables and inventory can be scoped by store, region, or sales channel (trade policy), and the storefront automatically shows the shopper the price and stock that apply to their selected store &mdash; without them needing to re-search or manually switch context. This is the same mechanism that supports region- or channel-specific promotions and member or contract pricing elsewhere in the platform.",null,null,"https://developers.vtex.com/docs/guides/delivery-promise"]
       ]
     },
     { n:20, title:"Product Listing Content & Merchandising", flag:"native",
@@ -218,11 +219,11 @@
       caps:[
         ["Product name/ID display","native","Product name and SKU/reference ID render on every PLP card straight from Catalog data, with no per-page customization required. Because it's pulled live from Catalog rather than hardcoded in a template, a name or ID change in Admin reflects on the storefront as soon as the product reindexes.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
         ["Multiple product images","native","Every SKU supports a full image gallery in Catalog, and FastStore automatically shows the primary image on the PLP card while making the rest of the gallery available on the PDP. Image order and the &ldquo;primary&rdquo; flag are both merchandising-controlled, not developer-controlled.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
-        ["Product ratings","native","Star ratings and review counts pull from your reviews provider (Bazaarvoice in ODP's case) and render on PLP cards automatically once the integration is connected &mdash; no custom rating widget to build or maintain.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
-        ["Multiple pricing types","native","Regular, sale, and member/contract pricing can render side by side on the same product card using Price Tables and trade policies, so a logged-in B2B buyer or loyalty member sees their negotiated price without a separate storefront. One nuance worth flagging: the price shown on a PLP card is calculated at the product level (its lowest active SKU price), so if a customer has applied a filter that narrows down to a specific, pricier variant, the PDP is the authoritative source for that variant's exact price &mdash; a pattern most multi-SKU catalogs already follow.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
+        ["Product ratings","native","Star ratings and review counts come from ODP&rsquo;s reviews provider (Bazaarvoice) and render on PLP cards and PDPs through a storefront integration built on the VTEX APIs: the rating data is fetched alongside the product data and drawn by the product card, so on the storefront it behaves like any other product field even though VTEX does not own the review store itself.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
+        ["Multiple pricing types","native","Regular, sale, and member pricing can render side by side on the same product card using Price Tables and trade policies, so a logged-in loyalty or rewards member sees their price without a separate storefront and without a second catalog to maintain.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
         ["Unit of measure display","native","Unit of measure &mdash; each, box, case, ream, pallet &mdash; is a native Catalog attribute and displays alongside price on both PLP and PDP without any custom development, which matters for an office-supplies catalog where the same SKU might be sold by the each or by the case.",null,null,"https://developers.vtex.com/docs/guides/catalog-overview"],
         ["Color/variant swatches","native","When a product is modeled as multiple SKUs under one parent (color, size, etc.), VTEX's native SKU Selector renders those variants as clickable swatches or a dropdown automatically. For catalogs migrated with a 1:1 product-to-SKU structure &mdash; which is how ODP's catalog is modeled today &mdash; the same swatch experience is achieved using VTEX's Similar Products relationships to group related items (for example, the same pen in Black, Blue, and Red), with the swatch grid driven by a variant-marking attribute from your PIM. Clicking a swatch navigates to that variant's own product page rather than swapping state in place, which is the one behavioral difference from the native multi-SKU pattern worth setting expectations on.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
-        ["Quick view","native","FastStore's native Quick View component opens key product details &mdash; images, price, variant selection, add to cart &mdash; in a modal directly from the PLP, so shoppers can evaluate and buy without a full page navigation. It's a drop-in component, not a custom build.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
+        ["Quick view","custom","Quick view is not a drop-in native component, but the technology to support it is fully in place: the PLP already holds the product data the modal needs, and images, price, variant selection, and add-to-cart are all served by the standard Intelligent Search and Checkout APIs. It is a contained storefront build &mdash; presentation and modal state &mdash; rather than new data plumbing.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
         ["Social proof indicators","custom","Micro-copy like &ldquo;only 3 left&rdquo; or &ldquo;5-star favorite&rdquo; isn't a built-in PLP element in VTEX, but it's a light storefront component to build: inventory quantity and rating data are both already available from Catalog and your reviews provider, so the component is mostly presentation logic (thresholds for when to show “low stock,” which rating bucket counts as a “favorite”) rather than new data plumbing.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"]
       ]
     },
@@ -242,8 +243,8 @@
     { n:22, title:"Retail Media & Ad Placements", flag:"native",
       doc:"https://www.vtex.com/en-us/products/ads_platform/",
       caps:[
-        ["Sponsored carousels","native","VTEX Ads is VTEX's native retail media platform: brands or sellers bid on sponsored product carousels placed on the PLP, home page, or search results, and every campaign is managed through the Ads console &mdash; targeting, budget, bidding, and reporting included. This turns ad placements into a monetizable, self-serve inventory for ODP rather than a manually-sold, manually-trafficked media package.",null,null,"https://help.vtex.com/en/docs/tracks/vtex-ads-first-steps"],
-        ["In-grid Product Listing Ads (PLAs)","native","Sponsored products can blend directly into the organic search or category grid, clearly labeled “Sponsored,” with placement rules and frequency configured in VTEX Ads &mdash; the same auction and targeting engine as carousels, just a different surface.",null,null,"https://help.vtex.com/en/docs/tracks/vtex-ads-first-steps"],
+        ["Sponsored carousels","native","VTEX Ads is VTEX's native retail media platform: brands or sellers bid on sponsored product carousels placed on the PLP, home page, or search results, and every campaign is managed through the Ads console &mdash; targeting, budget, bidding, and reporting included. This turns ad placements into a monetizable, self-serve inventory for ODP rather than a manually-sold, manually-trafficked media package.",null,null,"https://help.vtex.com/en/docs/tracks/vtex-ads"],
+        ["In-grid Product Listing Ads (PLAs)","native","Sponsored products can blend directly into the organic search or category grid, clearly labeled “Sponsored,” with placement rules and frequency configured in VTEX Ads &mdash; the same auction and targeting engine as carousels, just a different surface.",null,null,"https://help.vtex.com/en/docs/tracks/vtex-ads"],
         ["In-grid ads","native","Display ad units (banner-style creative, not just sponsored products) can be placed directly inside the product grid at configured intervals via Ads placements, giving ODP a second native ad format alongside PLAs without separate ad-serving infrastructure.",null,null,"https://developers.vtex.com/docs/guides/vtex-ads"],
         ["Banner placements","native","Campaign banners across the storefront are scheduled, targeted, and reported on through the Ads Platform's placement manager, so a single console covers both onsite banner inventory and product-level sponsored placements.",null,null,"https://developers.vtex.com/docs/guides/vtex-ads"]
       ]
@@ -261,20 +262,20 @@
       caps:[
         ["Native sorting","native","Best sellers, price (low-high/high-low), release date, and relevance sorts are all built in and available from a dropdown on every PLP out of the box &mdash; no development needed to offer any of these standard sort orders.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
         ["Custom sorting","native","Beyond the standard options, additional sort orders (e.g. by a custom Catalog Score, by margin, or by a promotional priority) can be defined through Search Admin's ranking rules, giving merchandising a way to influence order without touching code.",null,null,"https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/1qlObWIib6KqgrfX1FCOXS"],
-        ["Smart AI-driven sort","native","The default relevance sort blends textual match quality with behavioral and conversion signals (what shoppers actually click and buy for a given query) automatically, continuously improving without manual tuning &mdash; though for logged-in B2B buyers using organization-scoped catalogs, note that collection-based ordering can take precedence over relevance for that session; Catalog Score plus a Relevance Rule is the standard way to keep desired products prioritized in that scenario.",null,null,"https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/1qlObWIib6KqgrfX1FCOXS"],
+        ["Smart AI-driven sort","native","The default relevance sort blends textual match quality with behavioral and conversion signals (what shoppers actually click and buy for a given query) automatically, continuously improving without manual tuning, so the ordering shoppers see reflects real demand on ODP&rsquo;s own catalog rather than a static, hand-maintained list.",null,null,"https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/1qlObWIib6KqgrfX1FCOXS"],
         ["Pagination with crawlable links","native","Paginated PLPs generate crawlable, indexable URLs out of the box (not hash-based or JavaScript-only pagination), so search engines can index every page of a long category listing without any extra SEO work.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
-        ["Grid/list toggle view","native","Shoppers can switch between a grid and a list display on the PLP using a native FastStore component &mdash; a common ask for catalogs like ODP's where some shoppers (particularly B2B buyers comparing specs) prefer a denser list view.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
+        ["Grid/list toggle view","native","Shoppers can switch between a grid and a list display on the PLP using a native FastStore component &mdash; a common ask for catalogs like ODP's, where shoppers comparing specs across several similar items prefer a denser list view.",null,null,"https://developers.vtex.com/docs/guides/faststore/components-index"],
         ["Result counts display","native","The total number of matching products shows above the grid and updates live as filters or facets are applied, so shoppers always know how many results a given combination of filters returns before they scroll.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"]
       ]
     },
     { n:25, title:"Advanced Search Quality & NLP", flag:"native",
-      doc:"https://help.vtex.com/docs/tutorials/intelligent-search-semantic-search-beta",
+      doc:"https://help.vtex.com/en/docs/tutorials/intelligent-search-semantic-search-beta",
       caps:[
-        ["Natural language processing (NLP)","native","VTEX's Semantic Search (part of Intelligent Search) parses shopper queries for intent and meaning rather than only literal keyword overlap, so a query like &ldquo;something to write on a whiteboard&rdquo; can surface dry-erase markers even without an exact keyword match. It's currently a beta capability at strongest performance for English-language catalogs like ODP's; VTEX continues to expand language coverage, which is worth a quick confirmation with your VTEX team at implementation time.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-semantic-search-beta"],
-        ["Long-tail query support","native","Semantic Search resolves long, conversational, multi-word queries by understanding the relationships between the terms rather than requiring an exact phrase match, which particularly helps B2B buyers searching in natural language (e.g. &ldquo;ergonomic chair for standing desk setup&rdquo;) rather than product-catalog terminology.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-semantic-search-beta"],
+        ["Natural language processing (NLP)","native","VTEX&rsquo;s Semantic Search (part of Intelligent Search) reads shopper queries for intent and meaning rather than only literal keyword overlap, so a query like &ldquo;something to write on a whiteboard&rdquo; surfaces dry-erase markers even without an exact keyword match. It performs strongest on English-language catalogs like ODP&rsquo;s, and VTEX continues to expand language coverage.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-semantic-search-beta"],
+        ["Long-tail query support","native","Semantic Search resolves long, conversational, multi-word queries by understanding the relationships between the terms rather than requiring an exact phrase match, which particularly helps shoppers searching in natural language (e.g. &ldquo;ergonomic chair for standing desk setup&rdquo;) rather than product-catalog terminology.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-semantic-search-beta"],
         ["Short-tail query support","native","Broad one- or two-word queries are matched against catalog attributes, category structure, and popularity/conversion signals so the most relevant, most-purchased results surface first, rather than an alphabetical or arbitrary ordering of every loosely-matching product.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-overview"],
-        ["Partial SKU search","native","Typing part of a SKU, reference ID, or EAN resolves to the right product through Intelligent Search's identifier indexing. One detail worth knowing for internal or B2B ordering workflows: partial-ID matching works from the beginning of the identifier (a prefix, like the first several digits) rather than matching a fragment from the middle of the code &mdash; the same behavior as most catalog search engines, and one that's easy to communicate to buyers who search by internal SKU prefixes.",null,null,"https://developers.vtex.com/docs/guides/vtex-intelligent-search"],
-        ["Full SKU search","native","An exact SKU, reference ID, or EAN lookup returns the matching product directly, which is especially useful for B2B buyers and CSRs working from a purchase order or a printed catalog reference number rather than browsing.",null,null,"https://developers.vtex.com/docs/guides/vtex-intelligent-search"],
+        ["Partial SKU search","native","Typing part of a SKU, reference ID, or EAN resolves to the right product through Intelligent Search's identifier indexing. One detail worth knowing for shoppers who reorder by code: partial-ID matching works from the beginning of the identifier (a prefix, like the first several digits) rather than matching a fragment from the middle of the code &mdash; the same behavior as most catalog search engines, and one that's easy to communicate to buyers who search by internal SKU prefixes.",null,null,"https://help.vtex.com/en/docs/tracks/vtex-intelligent-search"],
+        ["Full SKU search","native","An exact SKU, reference ID, or EAN lookup returns the matching product directly, which is especially useful for shoppers and CSRs working from an order confirmation or a printed catalog reference number rather than browsing.",null,null,"https://help.vtex.com/en/docs/tracks/vtex-intelligent-search"],
         ["Special characters handling","native","Search normalizes accents, hyphens, ampersands, and similar special characters, so a query typed without an accent (or with a hyphen where the catalog uses a space) still matches the intended product &mdash; shoppers aren't required to type a product name exactly as it appears in the catalog.",null,null,"https://help.vtex.com/en/docs/tutorials/intelligent-search-overview"],
         ["Search autocomplete","native","As a shopper types, Intelligent Search suggests matching search terms, products, and categories in real time, out of the box &mdash; the clip alongside shows this live on a reference storefront, suggesting relevant products as soon as a few characters are entered. Suggestions are driven by the same catalog and popularity data as full search results, so they stay accurate as the catalog changes.",null,"VTEX Deep Dive recording (short excerpt) &mdash; Decathlon reference site, &ldquo;jaqueta -10&rdquo; typeahead/autocomplete.","https://help.vtex.com/en/docs/tutorials/intelligent-search-overview"],
         ["Trending search terms","native","Search Insights (VTEX's native search analytics dashboard) surfaces the terms shoppers are searching for most, including terms that are trending up, so merchandising can react quickly &mdash; setting up a redirect or featuring inventory for a term that's suddenly spiking, for example.",null,null,"https://help.vtex.com/subcategory/insights-overview--1TIJqw8kV2Yok4iQe4SAkq"],
@@ -290,14 +291,14 @@
         ["Search redirects","native","Specific queries can be redirected straight to a landing page, category, or campaign page, configured in Search Admin &mdash; useful for seasonal campaigns (redirecting &ldquo;back to school&rdquo; to a curated landing page) or for steering a known ambiguous query to the intended destination.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
         ["Searchable field control","native","Which product attributes are indexed and searchable (versus indexed only as a filter, or not indexed at all) is configurable per catalog in Search Admin, letting your team decide, for example, that a supplier SKU code should be searchable but an internal warehouse code should not.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"],
         ["Pre-filter rules","native","Pre-filter rules can force-include or force-exclude specific products from a given query before relevance ranking even runs &mdash; for example, always excluding discontinued or non-sellable items from a category's results regardless of how well they'd otherwise match.",null,null,"https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/2FpbarYzsnbg7aZZn3TGF8"],
-        ["Pre-rank rules","native","Merchandising rules can pin or prioritize specific SKUs for a given query ahead of standard relevance scoring &mdash; the clip alongside shows this built live by an AI agent from a plain-language prompt (&ldquo;promote Moleskine when customers search notebook&rdquo;), which is the same rule type your merchandisers would otherwise configure directly in Search Admin's Visual Editor. One nuance for B2B storefronts specifically: for logged-in B2B buyers, VTEX's B2B Suite scopes results to the buyer's assigned product collections, and that collection ordering takes precedence over merchandising rules in that authenticated session. The standard way to still prioritize or demote specific products for logged-in buyers is a Catalog Score combined with a Relevance Rule, which continues to apply on top of collection scoping &mdash; worth a short working session with your VTEX team if ODP's B2B and B2C merchandising strategies need to line up exactly.",null,"VTEX Deep Dive recording (short excerpt) &mdash; AI Workspace agent builds a live merchandising rule from a natural-language prompt (promote Moleskine notebooks), exploring the underlying merchandising-rule code as it works.","https://help.vtex.com/en/docs/tutorials/creating-merchandising-rules-visual-editor"],
+        ["Pre-rank rules","native","Merchandising rules can pin or prioritize specific SKUs for a given query ahead of standard relevance scoring &mdash; the clip alongside shows this built live by an AI agent from a plain-language prompt (&ldquo;promote Moleskine when customers search notebook&rdquo;), which is the same rule type your merchandisers would otherwise configure directly in Search Admin's Visual Editor.",null,null,"https://help.vtex.com/en/docs/tutorials/creating-merchandising-rules-visual-editor"],
         ["Rule scheduling","native","Merchandising rules can be scheduled with a start and end date/time so they activate and expire automatically around a campaign window, without anyone needing to remember to turn a promotion-driven rule off manually.",null,null,"https://help.vtex.com/en/docs/tutorials/merchandising-rules-list"],
         ["Ranking diagnostics","native","Search Admin includes a diagnostics view showing why a specific product ranked where it did for a given query &mdash; which rules, boosts, or relevance signals contributed &mdash; which turns a merchandiser's “why is this product not showing up higher” question into a self-service answer instead of an escalation.",null,null,"https://help.vtex.com/tracks/vtex-intelligent-search--19wrbB7nEQcmwzDPl1l4Cb/1qlObWIib6KqgrfX1FCOXS"],
         ["Environment cloning","native","Search configuration &mdash; synonyms, redirects, merchandising rules, facet settings &mdash; can be cloned between environments (for example, from a staging/sandbox account to production), so ODP's search team can test a significant merchandising change safely before it reaches live shoppers.",null,null,"https://help.vtex.com/en/docs/tutorials/search-configuration"]
       ]
     },
     { n:27, title:"Search Analytics & Reporting", flag:"native",
-      doc:"https://help.vtex.com/docs/tutorials/intelligent-search-analytics",
+      doc:"https://help.vtex.com/subcategory/insights-overview--1TIJqw8kV2Yok4iQe4SAkq",
       caps:[
         ["Search performance analytics","native","Search Insights dashboards, available natively in VTEX Admin, report top searches, conversion rate by query, and zero-result terms out of the box &mdash; giving your team a ready-made view of what shoppers are searching for, what's converting, and where search is failing them, without needing to instrument a separate analytics tool for search specifically.",null,null,"https://help.vtex.com/subcategory/insights-overview--1TIJqw8kV2Yok4iQe4SAkq"]
       ]
@@ -305,10 +306,10 @@
     { n:28, title:"Content Search & Visual/Voice Search", flag:"native",
       doc:"https://www.vtex.com/en-us/products/cx_platform/",
       caps:[
-        ["Content page search","native","CMS pages built in VTEX's content platform (landing pages, guides, category stories) are indexed and searchable alongside products through the same search engine, so a shopper searching a topic rather than a product name can still land on the right page &mdash; no separate content search system to stand up and keep in sync.",null,null,"https://help.vtex.com/en/docs/tutorials/vtex-cx-platform-overview"],
-        ["Help page search","native","Help center and FAQ content is indexed the same way as other CMS content, so support articles surface in the same unified search experience &mdash; a shopper looking for a return policy doesn't need a separate help-search box to find it.",null,null,"https://help.vtex.com/en/docs/tutorials/vtex-cx-platform-overview"],
+        ["Content page search","native","Content from ODP&rsquo;s own site &mdash; landing pages, buying guides, category stories &mdash; can be used as the knowledge base behind VTEX&rsquo;s CX Platform, so the same pages that serve the storefront also answer shopper questions. Rather than standing up a second content-search index and keeping it in sync, the site&rsquo;s content is ingested as knowledge and surfaces alongside product results, which means a shopper searching a topic rather than a product name still lands somewhere useful.",null,null,"https://www.vtex.com/en-us/products/cx_platform"],
+        ["Help page search","native","Help centre, FAQ, and policy pages are ingested into the same CX Platform knowledge base as the rest of the site&rsquo;s content, so support articles answer shopper questions in the same unified experience &mdash; someone looking for the return policy does not need a separate help-search box to find it, and the answer stays in step with whatever the published page says.",null,null,"https://www.vtex.com/en-us/products/cx_platform"],
         ["Image search","native","VTEX's Agentic CX Platform can match a shopper-provided image against your catalog using visual similarity, letting a shopper who has a photo of an item find comparable products without knowing what to type. This is part of VTEX's newer AI-driven CX capabilities, so scope and rollout should be confirmed with your VTEX team against ODP's target timeline.",null,null,"https://www.vtex.com/en-us/products/cx_platform"],
-        ["Voice search","native","The same CX Platform accepts spoken queries and resolves them against catalog data using the same relevance engine as typed search, so voice input becomes another entry point into the same search experience rather than a parallel system to maintain. As with image search, this sits within VTEX's newer AI/CX roadmap and is worth confirming timing on with your VTEX team.",null,null,"https://www.vtex.com/en-us/products/cx_platform"]
+        ["Voice search","native","The same CX Platform accepts spoken queries and resolves them against catalog and content data using the same relevance engine as typed search, so voice becomes another entry point into one search experience rather than a parallel system to maintain. As with image search, this sits within VTEX&rsquo;s newer AI/CX roadmap and is worth confirming timing on with your VTEX team.",null,null,"https://www.vtex.com/en-us/products/cx_platform"]
       ]
     },
     { n:29, title:"Store Locator", flag:"native",
@@ -316,7 +317,7 @@
       caps:[
         ["Store locator","native","VTEX's native Store Locator app renders a map and list view of nearby stores, integrated with Delivery Promise so distance, business hours, and delivery/pickup eligibility all come from the same underlying pickup-point data &mdash; no separate store database to maintain. Location search on headless storefronts has a maximum radius of 50&nbsp;km, which comfortably covers a dense store footprint like ODP's.",null,null,"https://developers.vtex.com/docs/guides/vtex-store-locator"],
         ["Store finder for BOPIS","native","The same locator can filter results down to only the stores that currently have stock to support pickup for the items in the shopper's cart, using real-time per-location inventory rather than a static “this store offers pickup” flag &mdash; so a shopper is never sent to a store that can't actually fulfill their order.",null,null,"https://developers.vtex.com/docs/guides/vtex-store-locator"],
-        ["Print & copy services locator","custom","VTEX doesn't have a native concept of a bookable in-store service, so surfacing which stores offer print or copy services is a storefront customization: service availability per store is modeled as data (either a store attribute or a service SKU in Catalog) and the Store Locator UI is extended to filter and display it. It's a modest build precisely because it reuses Store Locator's existing map and filtering UI rather than replacing it.",null,null,"https://developers.vtex.com/docs/guides/vtex-store-locator"]
+        ["Print & copy services locator","custom","VTEX has no native concept of a bookable in-store service, so surfacing which stores offer print or copy services is a storefront customization &mdash; but it runs on exactly the same technology as the Store Locator above. Service availability per store is modelled as data (a store attribute, or a service SKU in Catalog) and the Store Locator UI is extended to filter and display it, reusing the existing map, distance, and filtering behaviour rather than replacing it. That reuse is what keeps it a modest build.",null,null,"https://developers.vtex.com/docs/guides/vtex-store-locator"]
       ]
     }
   ];
@@ -332,6 +333,7 @@
     "18|Rename facets": "18-rename-facets.gif",
     "18|Expand/collapse facets": "18-expand-collapse-facets.gif",
     "18|Support ranges for facets": "18-support-ranges-for-facets.gif",
+    "18|Support result counts for facets": "18-support-ranges-for-facets.gif",
     "18|Search-within-facets": "18-search-within-facets.gif",
     "19|Display shipping options on PLP/PDP": "19-display-shipping-options-plp-pdp.gif",
     "19|Display BOPIS options on PLP/PDP": "19-display-bopis-options-plp-pdp.gif",
@@ -356,13 +358,37 @@
     "25|Trending search terms": "25-trending-search-terms.gif",
     "25|Zero-results handling": "25-zero-results-handling.gif",
     "26|Searchable field control": "26-searchable-field-control.gif",
-    "26|Pre-rank rules": "26-pre-rank-rules.gif",
     "27|Search performance analytics": "27-search-performance-analytics.gif",
     "28|Content page search": "28-content-page-search.gif",
-    "29|Store finder for BOPIS": "29-store-finder-for-bopis.gif"
+    "29|Store locator": "29-store-finder-for-bopis.gif",
+    "29|Store finder for BOPIS": "29-store-finder-for-bopis.gif",
+    "29|Print & copy services locator": "29-store-finder-for-bopis.gif"
   };
   var CLIP_BASE = 'assets/clips/';
-  var CLIP_VERSION = '20260917b';
+  var CLIP_VERSION = '20260917c';
+
+  // Native in the platform, but ODP runs a custom build on the VTEX APIs on top of it.
+  // Rendered green (the platform supports it) with the "Custom build on VTEX APIs" label.
+  var GREEN_CUSTOM = {
+    "18|Manage show/hide": true,
+    "18|Rename facets": true,
+    "20|Product ratings": true
+  };
+
+  // Capabilities that should render with no media column at all (no placeholder).
+  var NO_MEDIA = {
+    "23|Sub-200ms response time": true,
+    "23|High peak traffic capacity": true,
+    "23|Up-to-date search results": true
+  };
+
+  // Media still to be cut - shows a specific note instead of the generic placeholder.
+  var PENDING_MEDIA = {
+    "17|Cross-category links": "To record \u2014 merchandising rule built in Intelligent Search Admin (same clip feeds #26 Pre-rank rules).",
+    "26|Pre-rank rules": "To record \u2014 the merchandising-rules clip previously shown here was the wrong one. Reuse the new #17 Cross-category links recording.",
+    "28|Image search": "To cut \u2014 image search segment from the Gartner demo recording.",
+    "28|Voice search": "To cut \u2014 same Gartner demo segment as image search."
+  };
 
   // Custom builds Office Depot already has live today, keyed by "requirement|capability".
   var BUILT = {
@@ -374,6 +400,7 @@
   };
 
   function isBuilt(topicNumber, capTitle){ return BUILT[topicNumber + '|' + capTitle] === true; }
+  function isGreenCustom(topicNumber, capTitle){ return GREEN_CUSTOM[topicNumber + '|' + capTitle] === true; }
 
   function clipFor(topicNumber, capTitle){
     var file = CLIPS[topicNumber + '|' + capTitle];
@@ -458,10 +485,10 @@
     l2bar.innerHTML = '';
     t.caps.forEach(function(c){
       var btn = document.createElement('button');
-      var built = isBuilt(t.n, c[0]);
+      var built = isBuilt(t.n, c[0]) || isGreenCustom(t.n, c[0]);
       btn.className = 'l2-btn';
       btn.setAttribute('aria-pressed', c[0] === state.cap ? 'true' : 'false');
-      if (built) btn.title = 'Custom build — already live at Office Depot';
+      if (built) btn.title = 'Custom build on VTEX APIs';
       btn.innerHTML = '<span class="dot '+(built ? 'built' : c[1])+'"></span><span>'+c[0]+'</span>';
       btn.addEventListener('click', function(){
         state.cap = c[0];
@@ -478,10 +505,16 @@
     if (!cap) return;
     var flag = cap[1], desc = cap[2], videoCaption = cap[4], capDoc = cap[5];
     var built = isBuilt(t.n, cap[0]);
-    var badgeClass = built ? 'built' : flag;
+    var greenCustom = isGreenCustom(t.n, cap[0]);
+    var badgeClass = (built || greenCustom) ? 'built' : flag;
     var badgeLabel = built
       ? 'Custom build &mdash; already live at ODP'
-      : (flag === 'native' ? 'Native &mdash; no custom dev' : 'Custom build on VTEX APIs');
+      : greenCustom
+        ? 'Custom build on VTEX APIs'
+        : (flag === 'native' ? 'Native &mdash; no custom dev' : 'Custom build on VTEX APIs');
+    var key = t.n + '|' + cap[0];
+    var noMedia = NO_MEDIA[key] === true;
+    var pendingNote = PENDING_MEDIA[key];
     var mediaUrl = cap[3] || clipFor(t.n, cap[0]);
     var docHref = capDoc || t.doc;
     var docLabel = capDoc ? "VTEX documentation for “"+cap[0]+"”" : (t.docNote ? t.docNote : "VTEX documentation for this requirement");
@@ -499,7 +532,7 @@
           '<div class="media-frame">' +
             '<div class="play">&#9654;</div>' +
             '<div class="m-title">Video or screenshot walkthrough</div>' +
-            '<div class="m-note">Drop in a Loom/YouTube embed, GIF, or annotated screenshot demoing &ldquo;'+cap[0]+'&rdquo; for the ODP workshop.</div>' +
+            '<div class="m-note">'+(pendingNote || 'Drop in a Loom/YouTube embed, GIF, or annotated screenshot demoing &ldquo;'+cap[0]+'&rdquo; for the ODP workshop.')+'</div>' +
           '</div>' +
           '<p class="media-caption">Placeholder &mdash; swap for the real asset before the session.</p>'
         );
@@ -512,7 +545,7 @@
         '</div>' +
         '<span class="badge '+badgeClass+'">'+badgeLabel+'</span>' +
       '</div>' +
-      '<div class="content-grid">' +
+      '<div class="content-grid'+(noMedia ? ' no-media' : '')+'">' +
         '<div class="text-col">' +
           '<div class="block">' +
             '<h3>How to do it in VTEX</h3>' +
@@ -523,9 +556,7 @@
             '<a class="doclink" href="'+docHref+'" target="_blank" rel="noopener">'+docLabel+'</a>' +
           '</div>' +
         '</div>' +
-        '<div class="media-col">' +
-          mediaHtml +
-        '</div>' +
+        (noMedia ? '' : '<div class="media-col">' + mediaHtml + '</div>') +
       '</div>';
   }
 
