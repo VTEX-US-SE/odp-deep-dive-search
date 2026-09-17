@@ -99,8 +99,8 @@
   .l2-btn .dot{width:7px; height:7px; border-radius:50%; flex:none;}
   .l2-btn .dot.native{background:var(--native);}
   .l2-btn .dot.custom{background:var(--custom);}
-  .l2-btn.built{border-color:var(--native); color:var(--native);}
-  .l2-btn[aria-pressed="true"]{background:var(--pink-dim); border-color:var(--pink); color:var(--ink); font-weight:600;}
+  .l2-btn .dot.built{background:var(--native);}
+  .l2-btn[aria-pressed="true"]{background:var(--pink-dim); border-color:var(--pink); font-weight:600;}
 
   /* ---------- Content panel ---------- */
   main{max-width:1180px; margin:0 auto; padding:26px 20px 64px;}
@@ -458,10 +458,10 @@
     t.caps.forEach(function(c){
       var btn = document.createElement('button');
       var built = isBuilt(t.n, c[0]);
-      btn.className = 'l2-btn' + (built ? ' built' : '');
+      btn.className = 'l2-btn';
       btn.setAttribute('aria-pressed', c[0] === state.cap ? 'true' : 'false');
       if (built) btn.title = 'Custom build — already live at Office Depot';
-      btn.innerHTML = '<span class="dot '+c[1]+'"></span><span>'+c[0]+'</span>';
+      btn.innerHTML = '<span class="dot '+(built ? 'built' : c[1])+'"></span><span>'+c[0]+'</span>';
       btn.addEventListener('click', function(){
         state.cap = c[0];
         persist();
