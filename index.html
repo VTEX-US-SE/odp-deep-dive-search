@@ -326,6 +326,7 @@
   var CLIPS = {
     "17|Mega menu": "17-mega-menu.gif",
     "17|Subcategory links": "17-subcategory-links.gif",
+    "17|Cross-category links": "17-cross-category-links.gif",
     "17|Breadcrumbs": "17-breadcrumbs.gif",
     "17|Product taxonomy": "17-product-taxonomy.gif",
     "18|Manage boost/bury": "18-manage-boost-bury.gif",
@@ -350,22 +351,30 @@
     "24|Native sorting": "24-native-sorting.gif",
     "24|Pagination with crawlable links": "24-pagination-with-crawlable-links.gif",
     "24|Result counts display": "24-result-counts-display.gif",
+    "24|Grid/list toggle view": "24-grid-list-toggle.gif",
     "25|Natural language processing (NLP)": "25-natural-language-processing-nlp.gif",
     "25|Long-tail query support": "25-long-tail-query-support.gif",
     "25|Short-tail query support": "25-short-tail-query-support.gif",
+    "25|Partial SKU search": "25-partial-sku-search.gif",
+    "25|Full SKU search": "25-full-sku-search.gif",
     "25|Special characters handling": "25-special-characters-handling.gif",
     "25|Search autocomplete": "25-search-autocomplete.gif",
     "25|Trending search terms": "25-trending-search-terms.gif",
+    "25|‘Did You Mean’ suggestions": "25-did-you-mean-suggestions.gif",
     "25|Zero-results handling": "25-zero-results-handling.gif",
     "26|Searchable field control": "26-searchable-field-control.gif",
+    "26|Pre-filter rules": "26-pre-filter-rules.gif",
+    "26|Pre-rank rules": "26-pre-rank-rules.gif",
     "27|Search performance analytics": "27-search-performance-analytics.gif",
     "28|Content page search": "28-content-page-search.gif",
+    "28|Image search": "28-image-search.gif",
+    "28|Voice search": "28-voice-search.gif",
     "29|Store locator": "29-store-finder-for-bopis.gif",
     "29|Store finder for BOPIS": "29-store-finder-for-bopis.gif",
     "29|Print & copy services locator": "29-store-finder-for-bopis.gif"
   };
   var CLIP_BASE = 'assets/clips/';
-  var CLIP_VERSION = '20260917c';
+  var CLIP_VERSION = '20260917d';
 
   // Native in the platform, but ODP runs a custom build on the VTEX APIs on top of it.
   // Rendered green (the platform supports it) with the "Custom build on VTEX APIs" label.
@@ -383,12 +392,7 @@
   };
 
   // Media still to be cut - shows a specific note instead of the generic placeholder.
-  var PENDING_MEDIA = {
-    "17|Cross-category links": "To record \u2014 merchandising rule built in Intelligent Search Admin (same clip feeds #26 Pre-rank rules).",
-    "26|Pre-rank rules": "To record \u2014 the merchandising-rules clip previously shown here was the wrong one. Reuse the new #17 Cross-category links recording.",
-    "28|Image search": "To cut \u2014 image search segment from the Gartner demo recording.",
-    "28|Voice search": "To cut \u2014 same Gartner demo segment as image search."
-  };
+  var PENDING_MEDIA = {};
 
   // Custom builds Office Depot already has live today, keyed by "requirement|capability".
   var BUILT = {

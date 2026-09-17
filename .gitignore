@@ -1,0 +1,8 @@
+# Raw source recordings (large, not part of the deployed site)
+assets/*.mp4
+assets/*.mov
+assets/clips-source/
+_analysis/
+_to_delete/
+_review/
+*.txt
