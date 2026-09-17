@@ -362,6 +362,7 @@
     "29|Store finder for BOPIS": "29-store-finder-for-bopis.gif"
   };
   var CLIP_BASE = 'assets/clips/';
+  var CLIP_VERSION = '20260917b';
 
   // Custom builds Office Depot already has live today, keyed by "requirement|capability".
   var BUILT = {
@@ -376,7 +377,7 @@
 
   function clipFor(topicNumber, capTitle){
     var file = CLIPS[topicNumber + '|' + capTitle];
-    return file ? CLIP_BASE + file : null;
+    return file ? CLIP_BASE + file + '?v=' + CLIP_VERSION : null;
   }
 
   var scoreband = document.getElementById('scoreband');
@@ -488,7 +489,7 @@
     var mediaHtml = mediaUrl
       ? (
           '<div class="media-frame has-video">' +
-            (/\.gif$/i.test(mediaUrl)
+            (/\.gif(\?|$)/i.test(mediaUrl)
               ? '<img src="'+mediaUrl+'" alt="'+cap[0]+' clip" loading="lazy">'
               : '<video controls preload="metadata" playsinline src="'+mediaUrl+'"></video>') +
           '</div>' +
